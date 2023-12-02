@@ -1,1 +1,1 @@
-console.log("initial set up is go");
+(()=>{const o="groceries",e="get milk",g="12-8",c="high";console.log(o,e,g,c)})();
