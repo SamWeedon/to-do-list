@@ -34,14 +34,28 @@ function loadDOM() {
         for (let todo of project) {
             const todoBox = document.createElement('div');
             todoBox.classList.add('todoBox');
-            const title = document.createElement('h2');
+            const title = document.createElement('textarea');
             title.textContent = todo.title;
-            const description = document.createElement('p');
+            title.addEventListener('input', function() {
+                todo.title = title.value;
+                console.log(todo);
+            })
+            const description = document.createElement('textarea');
             description.textContent = todo.description;
-            const dueDate = document.createElement('p');
+            description.addEventListener('input', function() {
+                todo.description = description.value;
+                console.log(todo);
+            })
+            const dueDate = document.createElement('textarea');
             dueDate.textContent = todo.dueDate;
+            dueDate.addEventListener('input', function() {
+                todo.dueDate = dueDate.value;
+                console.log(todo);
+            })
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
+            const editButton = document.createElement('button');
+            editButton.textContent = 'edit';
             projectBox.appendChild(todoBox);
             todoBox.appendChild(title);
             todoBox.appendChild(description);
@@ -50,7 +64,7 @@ function loadDOM() {
 
             deleteButton.addEventListener('click', function(e) {
                 const button = e.target;
-                removeObjectWithPropertyValue('title', title.textContent, project);
+                removeObjectWithPropertyValue('title', todo.title, project);
                 loadDOM();
             })
         }
