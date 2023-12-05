@@ -69,9 +69,17 @@ function loadDOM() {
             })
         }
     }
+    const addProjectButton = document.createElement('button');
+    addProjectButton.textContent = 'Add Project';
+    addProjectButton.addEventListener('click', () => {
+        addProject(projectList, [ToDo('', '', '', '')]);
+        loadDOM();
+    });
+    document.body.appendChild(addProjectButton); 
 }
 
 loadDOM();
+
 
 function removeObjectWithPropertyValue(property, value, list) {
     // generic function for removing an object with a given property value from a list
