@@ -4,6 +4,7 @@
 // add, delete project
 // edit todo
 // mark todos as complete
+import './style.css';
 
 const ToDo = (title, description, dueDate, priority) => {
     const complete = false;
@@ -17,21 +18,41 @@ const ToDo2 = ToDo('run', '3 miles', '12-10', 'medium');
 let defaultProject = [defaultToDo, ToDo1, ToDo2];
 let projectList = [defaultProject];
 
+function removeAllChildren(element) {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
 
 function loadDOM() {
+    removeAllChildren(document.body);
     for (let project of projectList) {
+        const projectBox = document.createElement('div');
+        projectBox.classList.add('projectBox');
+        document.body.appendChild(projectBox);
+
         for (let todo of project) {
-            const container = document.createElement('div');
+            const todoBox = document.createElement('div');
+            todoBox.classList.add('todoBox');
             const title = document.createElement('h2');
             title.textContent = todo.title;
             const description = document.createElement('p');
             description.textContent = todo.description;
             const dueDate = document.createElement('p');
             dueDate.textContent = todo.dueDate;
-            document.body.appendChild(container);
-            container.appendChild(title);
-            container.appendChild(description);
-            container.appendChild(dueDate);
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'delete';
+            projectBox.appendChild(todoBox);
+            todoBox.appendChild(title);
+            todoBox.appendChild(description);
+            todoBox.appendChild(dueDate);
+            todoBox.appendChild(deleteButton);
+
+            deleteButton.addEventListener('click', function(e) {
+                const button = e.target;
+                removeObjectWithPropertyValue('title', title.textContent, project);
+                loadDOM();
+            })
         }
     }
 }
@@ -50,13 +71,18 @@ function removeObjectWithPropertyValue(property, value, list) {
 }
 
 function changeObjectPropertyValue(obj, property, newValue) {
-    // generic function for changing object properties
+    // generic function for changing object properties (UNECESSARY)
     obj[property] = newValue; 
 }
 
 function toggleBooleanProperty(obj, property) {
     // generic function for toggling boolean object properties
     obj[property] = !obj[property];
+}
+
+function toggleCompleteStatus(todo) {
+    // specific function for toggling todo complete status
+    todo.complete = !todo.complete;
 }
 
 function nestListWithinList(nestedList, parentList) {
@@ -69,9 +95,10 @@ function addProject(projectList, project) {
     projectList.unshift(project);
 }
 
-removeObjectWithPropertyValue('title', 'eat', defaultProject);
-changeObjectPropertyValue(ToDo2, 'description', '10 miles');
-toggleBooleanProperty(ToDo2, 'complete');
+//removeObjectWithPropertyValue('title', 'eat', defaultProject);
+//changeObjectPropertyValue(ToDo2, 'description', '10 miles');
+//toggleBooleanProperty(ToDo2, 'complete');
 
-console.log(defaultProject);
+//console.log(defaultProject);
 
+//loadDOM();
