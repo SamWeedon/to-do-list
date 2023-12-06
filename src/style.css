@@ -1,7 +1,8 @@
 .projectBox {
     border: 1px solid blue;
+    margin: 10px;
 }
 
 .todoBox {
-    border: 1px solid red;
+    
 }

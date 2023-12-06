@@ -30,6 +30,13 @@ function loadDOM() {
         const projectBox = document.createElement('div');
         projectBox.classList.add('projectBox');
         document.body.appendChild(projectBox);
+        const addTodoButton = document.createElement('button');
+        addTodoButton.textContent = '+';
+        addTodoButton.addEventListener('click', function() {
+            project.unshift(ToDo('','','',''));
+            loadDOM();
+        })
+        projectBox.appendChild(addTodoButton);
 
         for (let todo of project) {
             const todoBox = document.createElement('div');
