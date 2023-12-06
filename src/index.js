@@ -35,12 +35,34 @@ function loadDOM() {
         addTodoButton.addEventListener('click', function() {
             project.unshift(ToDo('','','',''));
             loadDOM();
-        })
+        });
         projectBox.appendChild(addTodoButton);
+        const deleteProjectButton = document.createElement('button');
+        deleteProjectButton.textContent = 'Delete Project';
+        deleteProjectButton.addEventListener('click', function() {
+            let index = projectList.indexOf(project);
+            projectList.splice(index, 1);
+            loadDOM();
+        });
+        projectBox.appendChild(deleteProjectButton);
 
         for (let todo of project) {
             const todoBox = document.createElement('div');
             todoBox.classList.add('todoBox');
+            const completeButton = document.createElement('button');
+            completeButton.textContent = 'Complete';
+            completeButton.addEventListener('click', function() {
+                if (todo.complete == false) {
+                    completeButton.style.backgroundColor = 'green';
+                    todo.complete = true;
+                }
+                else {
+                    completeButton.style.backgroundColor = 'initial';
+                    todo.complete = false;
+                }
+                    
+            })
+            todoBox.appendChild(completeButton);
             const title = document.createElement('textarea');
             title.textContent = todo.title;
             title.addEventListener('input', function() {
