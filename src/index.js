@@ -4,6 +4,8 @@
 // add, delete project
 // edit todo
 // mark todos as complete
+// NEW
+// project names
 import './style.css';
 
 const ToDo = (title, description, dueDate, priority) => {
@@ -81,15 +83,38 @@ function loadDOM() {
                 todo.dueDate = dueDate.value;
                 console.log(todo);
             })
+
+            const prioritySelect = document.createElement('select');
+            const lowPriority = document.createElement('option');
+            lowPriority.value = 'low';
+            lowPriority.textContent = 'Low';
+            const mediumPriority = document.createElement('option');
+            mediumPriority.value = 'medium';
+            mediumPriority.textContent = 'Medium';
+            const highPriority = document.createElement('option');
+            highPriority.value = 'high';
+            highPriority.textContent = 'High';
+            prioritySelect.appendChild(lowPriority);
+            prioritySelect.appendChild(mediumPriority);
+            prioritySelect.appendChild(highPriority);
+
+            prioritySelect.value = todo.priority;
+            prioritySelect.addEventListener('change', function() {
+                todo.priority = prioritySelect.value;
+            })
+
             const deleteButton = document.createElement('button');
             deleteButton.textContent = 'delete';
             const editButton = document.createElement('button');
             editButton.textContent = 'edit';
+
             projectBox.appendChild(todoBox);
             todoBox.appendChild(title);
             todoBox.appendChild(description);
             todoBox.appendChild(dueDate);
+            todoBox.appendChild(prioritySelect);
             todoBox.appendChild(deleteButton);
+            
 
             deleteButton.addEventListener('click', function(e) {
                 const button = e.target;
