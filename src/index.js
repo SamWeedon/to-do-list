@@ -13,11 +13,15 @@ const ToDo = (title, description, dueDate, priority) => {
     return {title, description, dueDate, priority, complete};
 };
 
+const Project = (title, todoList) => {
+    return {title, todoList};
+}
+
 const defaultToDo = ToDo('groceries', 'get milk', '12-8', 'high');
 const ToDo1 = ToDo('eat', 'eat dinner', '12-9', 'low');
 const ToDo2 = ToDo('run', '3 miles', '12-10', 'medium');
 
-let defaultProject = [defaultToDo, ToDo1, ToDo2];
+let defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
 let projectList = [defaultProject];
 
 function removeAllChildren(element) {
@@ -28,17 +32,24 @@ function removeAllChildren(element) {
 
 function loadDOM() {
     removeAllChildren(document.body);
+
     for (let project of projectList) {
         const projectBox = document.createElement('div');
         projectBox.classList.add('projectBox');
         document.body.appendChild(projectBox);
+
+        const projectHeading = document.createElement('h2');
+        projectHeading.textContent = project.title;
+        projectBox.appendChild(projectHeading);
+
         const addTodoButton = document.createElement('button');
         addTodoButton.textContent = '+';
         addTodoButton.addEventListener('click', function() {
-            project.unshift(ToDo('','','',''));
+            project.todoList.unshift(ToDo('','','',''));
             loadDOM();
         });
         projectBox.appendChild(addTodoButton);
+
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.textContent = 'Delete Project';
         deleteProjectButton.addEventListener('click', function() {
@@ -48,9 +59,10 @@ function loadDOM() {
         });
         projectBox.appendChild(deleteProjectButton);
 
-        for (let todo of project) {
+        for (let todo of project.todoList) {
             const todoBox = document.createElement('div');
             todoBox.classList.add('todoBox');
+
             const completeButton = document.createElement('button');
             completeButton.textContent = 'Complete';
             completeButton.addEventListener('click', function() {
@@ -65,18 +77,21 @@ function loadDOM() {
                     
             })
             todoBox.appendChild(completeButton);
+
             const title = document.createElement('textarea');
             title.textContent = todo.title;
             title.addEventListener('input', function() {
                 todo.title = title.value;
                 console.log(todo);
             })
+
             const description = document.createElement('textarea');
             description.textContent = todo.description;
             description.addEventListener('input', function() {
                 todo.description = description.value;
                 console.log(todo);
             })
+
             const dueDate = document.createElement('textarea');
             dueDate.textContent = todo.dueDate;
             dueDate.addEventListener('input', function() {
@@ -115,18 +130,19 @@ function loadDOM() {
             todoBox.appendChild(prioritySelect);
             todoBox.appendChild(deleteButton);
             
-
             deleteButton.addEventListener('click', function(e) {
                 const button = e.target;
-                removeObjectWithPropertyValue('title', todo.title, project);
+                removeObjectWithPropertyValue('title', todo.title, project.todoList);
                 loadDOM();
             })
         }
     }
+
     const addProjectButton = document.createElement('button');
     addProjectButton.textContent = 'Add Project';
     addProjectButton.addEventListener('click', () => {
-        addProject(projectList, [ToDo('', '', '', '')]);
+        let projectTitle = prompt("Project title?");
+        addProject(projectList, Project(projectTitle, [ToDo('', '', '', '')]));
         loadDOM();
     });
     document.body.appendChild(addProjectButton); 
