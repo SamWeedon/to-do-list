@@ -65,16 +65,12 @@ function loadDOM() {
 
             const completeButton = document.createElement('button');
             completeButton.textContent = 'Complete';
+            todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
             completeButton.addEventListener('click', function() {
-                if (todo.complete == false) {
-                    completeButton.style.backgroundColor = 'green';
-                    todo.complete = true;
-                }
-                else {
-                    completeButton.style.backgroundColor = 'initial';
-                    todo.complete = false;
-                }
-                    
+                console.log(todo.complete);
+                todo.complete = !todo.complete;
+                console.log(todo.complete);
+                todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';               
             })
             todoBox.appendChild(completeButton);
 
