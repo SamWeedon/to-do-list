@@ -6,7 +6,6 @@
 // mark todos as complete
 // project names
 import './style.css';
-import { format } from 'date-fns';
 
 const ToDo = (title, description, dueDate, priority) => {
     const complete = false;
@@ -17,9 +16,9 @@ const Project = (title, todoList) => {
     return {title, todoList};
 }
 
-const defaultToDo = ToDo('groceries', 'get milk', format(new Date('2023-12-08'), "yyyy-MM-dd"), 'high');
-const ToDo1 = ToDo('eat', 'eat dinner', format(new Date('2023-12-09'), "yyyy-MM-dd"), 'low');
-const ToDo2 = ToDo('run', '3 miles', format(new Date('2023-12-10'), "yyyy-MM-dd"), 'medium');
+const defaultToDo = ToDo('groceries', 'get milk', new Date('2023-12-08'), 'high');
+const ToDo1 = ToDo('eat', 'eat dinner', new Date('2023-12-09'), 'low');
+const ToDo2 = ToDo('run', '3 miles', new Date('2023-12-10'), 'medium');
 
 let defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
 let projectList = [defaultProject];
@@ -88,10 +87,11 @@ function loadDOM() {
 
             const dueDate = document.createElement('input');
             dueDate.type = 'date';
-            dueDate.value = todo.dueDate;
+            if (todo.dueDate) {
+                dueDate.valueAsDate = todo.dueDate;
+            }
             dueDate.addEventListener('input', function() {
-                todo.dueDate = dueDate.value;
-                console.log(todo);
+                todo.dueDate = new Date(dueDate.value);
             })
 
             const prioritySelect = document.createElement('select');
