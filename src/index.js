@@ -4,9 +4,9 @@
 // add, delete project
 // edit todo
 // mark todos as complete
-// NEW
 // project names
 import './style.css';
+import { format } from 'date-fns';
 
 const ToDo = (title, description, dueDate, priority) => {
     const complete = false;
@@ -17,9 +17,9 @@ const Project = (title, todoList) => {
     return {title, todoList};
 }
 
-const defaultToDo = ToDo('groceries', 'get milk', '12-8', 'high');
-const ToDo1 = ToDo('eat', 'eat dinner', '12-9', 'low');
-const ToDo2 = ToDo('run', '3 miles', '12-10', 'medium');
+const defaultToDo = ToDo('groceries', 'get milk', format(new Date('2023-12-08'), "yyyy-MM-dd"), 'high');
+const ToDo1 = ToDo('eat', 'eat dinner', format(new Date('2023-12-09'), "yyyy-MM-dd"), 'low');
+const ToDo2 = ToDo('run', '3 miles', format(new Date('2023-12-10'), "yyyy-MM-dd"), 'medium');
 
 let defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
 let projectList = [defaultProject];
@@ -67,9 +67,7 @@ function loadDOM() {
             completeButton.textContent = 'Complete';
             todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
             completeButton.addEventListener('click', function() {
-                console.log(todo.complete);
                 todo.complete = !todo.complete;
-                console.log(todo.complete);
                 todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';               
             })
             todoBox.appendChild(completeButton);
@@ -88,8 +86,9 @@ function loadDOM() {
                 console.log(todo);
             })
 
-            const dueDate = document.createElement('textarea');
-            dueDate.textContent = todo.dueDate;
+            const dueDate = document.createElement('input');
+            dueDate.type = 'date';
+            dueDate.value = todo.dueDate;
             dueDate.addEventListener('input', function() {
                 todo.dueDate = dueDate.value;
                 console.log(todo);
