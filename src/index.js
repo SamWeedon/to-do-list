@@ -97,7 +97,7 @@ function loadDOM() {
                 const dueDate = document.createElement('input');
                 dueDate.type = 'date';
                 if (todo.dueDate) {
-                    dueDate.valueAsDate = todo.dueDate;
+                    dueDate.valueAsDate = new Date(todo.dueDate);
                 }
                 dueDate.addEventListener('input', function() {
                     todo.dueDate = new Date(dueDate.value + 'T00:00');
