@@ -138,7 +138,7 @@ function loadDOM() {
                 const miniTitle = document.createElement('h3');
                 miniTitle.textContent = todo.title;
                 todoBox.appendChild(miniTitle);
-                
+
                 if (todo.dueDate) {
                     const miniDueDate = document.createElement('h4');
                     miniDueDate.textContent = format(todo.dueDate, 'MM/dd/yyyy');
@@ -209,10 +209,25 @@ function addProject(projectList, project) {
     projectList.unshift(project);
 }
 
-//removeObjectWithPropertyValue('title', 'eat', defaultProject);
-//changeObjectPropertyValue(ToDo2, 'description', '10 miles');
-//toggleBooleanProperty(ToDo2, 'complete');
+function saveToLocalStorage() {
+    localStorage.clear();
+    for (let project of projectList) {
+        localStorage.setItem(project.title, JSON.stringify(project));
+    }
+}
 
-//console.log(defaultProject);
+function loadLocalStorage() {
+    //console.log(projectList);
+    projectList = [];
+    //console.log(projectList);
+    const items = { ...localStorage };
+    //console.log(items);
+    
+    for (const project in items) {
+        projectList.push(items[project]);
+    }
+    //console.log(projectList);
+}
 
-//loadDOM();
+//saveToLocalStorage();
+//loadLocalStorage();
