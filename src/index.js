@@ -47,6 +47,7 @@ function loadDOM() {
         addTodoButton.textContent = 'Add ToDo';
         addTodoButton.addEventListener('click', function() {
             project.todoList.unshift(ToDo('','','',''));
+            saveToLocalStorage();
             loadDOM();
         });
         projectBox.appendChild(addTodoButton);
@@ -56,6 +57,7 @@ function loadDOM() {
         deleteProjectButton.addEventListener('click', function() {
             let index = projectList.indexOf(project);
             projectList.splice(index, 1);
+            saveToLocalStorage();
             loadDOM();
         });
         projectBox.appendChild(deleteProjectButton);
@@ -71,7 +73,8 @@ function loadDOM() {
                 todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
                 completeButton.addEventListener('click', function() {
                     todo.complete = !todo.complete;
-                    todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';               
+                    todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
+                    saveToLocalStorage();               
                 })
                 todoBox.appendChild(completeButton);
     
@@ -79,7 +82,7 @@ function loadDOM() {
                 title.textContent = todo.title;
                 title.addEventListener('input', function() {
                     todo.title = title.value;
-                    console.log(todo);
+                    saveToLocalStorage();
                 })
                 todoBox.appendChild(title);
     
@@ -87,7 +90,7 @@ function loadDOM() {
                 description.textContent = todo.description;
                 description.addEventListener('input', function() {
                     todo.description = description.value;
-                    console.log(todo);
+                    saveToLocalStorage();
                 })
                 todoBox.appendChild(description);
     
@@ -98,6 +101,7 @@ function loadDOM() {
                 }
                 dueDate.addEventListener('input', function() {
                     todo.dueDate = new Date(dueDate.value + 'T00:00');
+                    saveToLocalStorage();
                 })
                 todoBox.appendChild(dueDate);
     
@@ -118,18 +122,18 @@ function loadDOM() {
                 prioritySelect.value = todo.priority;
                 prioritySelect.addEventListener('change', function() {
                     todo.priority = prioritySelect.value;
+                    saveToLocalStorage();
                 })
                 todoBox.appendChild(prioritySelect);
     
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'delete';
-                const editButton = document.createElement('button');
-                editButton.textContent = 'edit';
                 todoBox.appendChild(deleteButton);
                 
                 deleteButton.addEventListener('click', function(e) {
                     const button = e.target;
                     removeObjectWithPropertyValue('title', todo.title, project.todoList);
+                    saveToLocalStorage();
                     loadDOM();
                 })
             }
@@ -151,6 +155,7 @@ function loadDOM() {
             else editButton.textContent = 'Expand';
             editButton.addEventListener('click', function() {
                 todo.maximized = !todo.maximized;
+                saveToLocalStorage();
                 loadDOM();
             });
             //editButton.addEventListener('click', function(e) {
@@ -165,11 +170,13 @@ function loadDOM() {
     addProjectButton.addEventListener('click', () => {
         let projectTitle = prompt("Project title?");
         addProject(projectList, Project(projectTitle, [ToDo('', '', '', '')]));
+        saveToLocalStorage();
         loadDOM();
     });
     document.body.appendChild(addProjectButton); 
 }
 
+loadLocalStorage();
 loadDOM();
 
 
@@ -217,16 +224,16 @@ function saveToLocalStorage() {
 }
 
 function loadLocalStorage() {
-    //console.log(projectList);
+    console.log(projectList);
     projectList = [];
-    //console.log(projectList);
+    console.log(projectList);
     const items = { ...localStorage };
-    //console.log(items);
+    console.log(items);
     
     for (const project in items) {
-        projectList.push(items[project]);
+        projectList.push(JSON.parse(items[project]));
     }
-    //console.log(projectList);
+    console.log(projectList);
 }
 
 //saveToLocalStorage();
