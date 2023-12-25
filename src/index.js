@@ -7,6 +7,8 @@
 // project names
 import './style.css';
 import { format } from 'date-fns';
+import removeAllChildren from './removeAllChildren.js'
+import removeItemFromArray from './removeItemFromArray.js';
 
 const ToDo = (title, description, dueDate, priority) => {
     const complete = false;
@@ -24,12 +26,6 @@ const ToDo2 = ToDo('run', '3 miles', new Date('2023-12-10T00:00'), 'medium');
 
 let defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
 let projectList = [defaultProject];
-
-function removeAllChildren(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
-    }
-}
 
 function loadDOM() {
     removeAllChildren(document.body);
@@ -55,8 +51,7 @@ function loadDOM() {
         const deleteProjectButton = document.createElement('button');
         deleteProjectButton.textContent = 'Delete Project';
         deleteProjectButton.addEventListener('click', function() {
-            let index = projectList.indexOf(project);
-            projectList.splice(index, 1);
+            removeItemFromArray(project, projectList);
             saveToLocalStorage();
             loadDOM();
         });
@@ -130,9 +125,8 @@ function loadDOM() {
                 deleteButton.textContent = 'delete';
                 todoBox.appendChild(deleteButton);
                 
-                deleteButton.addEventListener('click', function(e) {
-                    const button = e.target;
-                    removeObjectWithPropertyValue('title', todo.title, project.todoList);
+                deleteButton.addEventListener('click', function() {
+                    removeItemFromArray(todo, project.todoList);
                     saveToLocalStorage();
                     loadDOM();
                 })
@@ -169,7 +163,7 @@ function loadDOM() {
     addProjectButton.textContent = 'Add Project';
     addProjectButton.addEventListener('click', () => {
         let projectTitle = prompt("Project title?");
-        addProject(projectList, Project(projectTitle, [ToDo('', '', '', '')]));
+        projectList.unshift(Project(projectTitle, [ToDo('', '', '', '')]));
         saveToLocalStorage();
         loadDOM();
     });
@@ -178,43 +172,6 @@ function loadDOM() {
 
 loadLocalStorage();
 loadDOM();
-
-
-function removeObjectWithPropertyValue(property, value, list) {
-    // generic function for removing an object with a given property value from a list
-    let index;
-    for (let obj of list) {
-        if (obj[property] == value) {
-            index = list.indexOf(obj);
-        }
-    }
-    list.splice(index, 1);
-}
-
-function changeObjectPropertyValue(obj, property, newValue) {
-    // generic function for changing object properties (UNECESSARY)
-    obj[property] = newValue; 
-}
-
-function toggleBooleanProperty(obj, property) {
-    // generic function for toggling boolean object properties
-    obj[property] = !obj[property];
-}
-
-function toggleCompleteStatus(todo) {
-    // specific function for toggling todo complete status
-    todo.complete = !todo.complete;
-}
-
-function nestListWithinList(nestedList, parentList) {
-    // generic function for adding something to the beginning of a list
-    parentList.unshift(nestedList);
-}
-
-function addProject(projectList, project) {
-    // specific function for adding a project to the list
-    projectList.unshift(project);
-}
 
 function saveToLocalStorage() {
     localStorage.clear();
@@ -235,6 +192,3 @@ function loadLocalStorage() {
     }
     console.log(projectList);
 }
-
-//saveToLocalStorage();
-//loadLocalStorage();
