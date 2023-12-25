@@ -175,20 +175,13 @@ loadDOM();
 
 function saveToLocalStorage() {
     localStorage.clear();
-    for (let project of projectList) {
-        localStorage.setItem(project.title, JSON.stringify(project));
-    }
+    localStorage.setItem('projectList', JSON.stringify(projectList));
 }
 
 function loadLocalStorage() {
-    console.log(projectList);
     projectList = [];
-    console.log(projectList);
-    const items = { ...localStorage };
-    console.log(items);
-    
-    for (const project in items) {
-        projectList.push(JSON.parse(items[project]));
+    const storedProjectList = JSON.parse(localStorage.getItem('projectList'));
+    for (let project of storedProjectList) {
+        projectList.push(project);
     }
-    console.log(projectList);
 }
