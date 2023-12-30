@@ -1,33 +1,57 @@
-// NON-DOM FUNCTIONALITY
-// define title, description, due date, priority for todo
-// add, delete todo
-// add, delete project
-// edit todo
-// mark todos as complete
-// project names
 import './style.css';
 import { format } from 'date-fns';
 import removeAllChildren from './removeAllChildren.js'
 import removeItemFromArray from './removeItemFromArray.js';
 
 const ToDo = (title, description, dueDate, priority) => {
+    // A 'To-Do' item as part of a larger 'project'
     const complete = false;
     const maximized = false;
     return {title, description, dueDate, priority, complete, maximized};
 };
 
 const Project = (title, todoList) => {
+    // A project that contains a 'To-Do' list
     return {title, todoList};
 }
 
+// Creates default content for the first time visiting the website
 const defaultToDo = ToDo('groceries', 'get milk', new Date('2023-12-08T00:00'), 'high');
 const ToDo1 = ToDo('eat', 'eat dinner', new Date('2023-12-09T00:00'), 'low');
 const ToDo2 = ToDo('run', '3 miles', new Date('2023-12-10T00:00'), 'medium');
-
 let defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
+
+// An array to contain all of the projects
 let projectList = [defaultProject];
 
+function saveToLocalStorage() {
+    // saves the current project list to localStorage
+    localStorage.clear();
+    localStorage.setItem('projectList', JSON.stringify(projectList));
+}
+
+function loadLocalStorage() {
+    // loads the data from localStorage to populate the project list
+    projectList = [];
+    const storedProjectList = JSON.parse(localStorage.getItem('projectList'));
+    for (let project of storedProjectList) {
+        projectList.push(project);
+    }
+    /*
+    // Example of how to add methods back into objects after being retrieved from JSON
+    for (let project of projectList) {
+        for (let todo of project.todoList) {
+            todo.printSomething = function() {
+                console.log('something');
+            }
+        }
+    }
+    */
+}
+
 function loadDOM() {
+    // Iterates through the data within the project list to populate the DOM, 
+    // utilizing event listeners to facilitate user input
     removeAllChildren(document.body);
 
     for (let project of projectList) {
@@ -62,6 +86,7 @@ function loadDOM() {
             todoBox.classList.add('todoBox');
             projectBox.appendChild(todoBox);
 
+            // if the user has expanded the 'To-Do'
             if (todo.maximized) {
                 const completeButton = document.createElement('button');
                 completeButton.textContent = 'Complete';
@@ -130,6 +155,7 @@ function loadDOM() {
                 })
             }
 
+            // if the 'To-Do' is minimized
             else {
                 const miniTitle = document.createElement('h3');
                 miniTitle.textContent = todo.title;
@@ -168,30 +194,9 @@ function loadDOM() {
     document.body.appendChild(addProjectButton); 
 }
 
+// driver script
 if (localStorage.length == 0) {
     saveToLocalStorage();
 }
 loadLocalStorage();
 loadDOM();
-
-function saveToLocalStorage() {
-    localStorage.clear();
-    localStorage.setItem('projectList', JSON.stringify(projectList));
-}
-
-function loadLocalStorage() {
-    projectList = [];
-    const storedProjectList = JSON.parse(localStorage.getItem('projectList'));
-    for (let project of storedProjectList) {
-        projectList.push(project);
-    }
-    /*
-    for (let project of projectList) {
-        for (let todo of project.todoList) {
-            todo.printSomething = function() {
-                console.log('something');
-            }
-        }
-    }
-    */
-}
