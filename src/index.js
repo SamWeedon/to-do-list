@@ -184,4 +184,13 @@ function loadLocalStorage() {
     for (let project of storedProjectList) {
         projectList.push(project);
     }
+    /*
+    for (let project of projectList) {
+        for (let todo of project.todoList) {
+            todo.printSomething = function() {
+                console.log('something');
+            }
+        }
+    }
+    */
 }
