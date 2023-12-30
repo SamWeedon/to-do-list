@@ -6,3 +6,7 @@
 .todoBox {
     border: 2px solid red;
 }
+
+.complete {
+    background-color: green;
+}

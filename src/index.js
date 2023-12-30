@@ -68,8 +68,8 @@ function loadDOM() {
                 todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
                 completeButton.addEventListener('click', function() {
                     todo.complete = !todo.complete;
-                    todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
-                    saveToLocalStorage();               
+                    saveToLocalStorage();
+                    loadDOM();               
                 })
                 todoBox.appendChild(completeButton);
     
@@ -113,7 +113,6 @@ function loadDOM() {
                 prioritySelect.appendChild(lowPriority);
                 prioritySelect.appendChild(mediumPriority);
                 prioritySelect.appendChild(highPriority);
-    
                 prioritySelect.value = todo.priority;
                 prioritySelect.addEventListener('change', function() {
                     todo.priority = prioritySelect.value;
@@ -124,7 +123,6 @@ function loadDOM() {
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'delete';
                 todoBox.appendChild(deleteButton);
-                
                 deleteButton.addEventListener('click', function() {
                     removeItemFromArray(todo, project.todoList);
                     saveToLocalStorage();
@@ -170,6 +168,9 @@ function loadDOM() {
     document.body.appendChild(addProjectButton); 
 }
 
+if (localStorage.length == 0) {
+    saveToLocalStorage();
+}
 loadLocalStorage();
 loadDOM();
 
