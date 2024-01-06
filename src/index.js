@@ -104,7 +104,10 @@ function loadDOM() {
                     todo.title = title.value;
                     saveToLocalStorage();
                 })
-                todoBox.appendChild(title);
+                const titleLabel = document.createElement('label');
+                titleLabel.textContent = 'Title:';
+                todoBox.appendChild(titleLabel);
+                titleLabel.appendChild(title);
     
                 const description = document.createElement('textarea');
                 description.textContent = todo.description;
@@ -112,7 +115,10 @@ function loadDOM() {
                     todo.description = description.value;
                     saveToLocalStorage();
                 })
-                todoBox.appendChild(description);
+                const descriptionLabel = document.createElement('label');
+                descriptionLabel.textContent = 'Description:';
+                todoBox.appendChild(descriptionLabel);
+                descriptionLabel.appendChild(description);
     
                 const dueDate = document.createElement('input');
                 dueDate.type = 'date';
@@ -123,7 +129,10 @@ function loadDOM() {
                     todo.dueDate = new Date(dueDate.value + 'T00:00');
                     saveToLocalStorage();
                 })
-                todoBox.appendChild(dueDate);
+                const dueDateLabel = document.createElement('label');
+                dueDateLabel.textContent = 'Due Date:';
+                todoBox.appendChild(dueDateLabel);
+                dueDateLabel.appendChild(dueDate);
     
                 const prioritySelect = document.createElement('select');
                 const lowPriority = document.createElement('option');
@@ -143,7 +152,10 @@ function loadDOM() {
                     todo.priority = prioritySelect.value;
                     saveToLocalStorage();
                 })
-                todoBox.appendChild(prioritySelect);
+                const prioritySelectLabel = document.createElement('label');
+                prioritySelectLabel.textContent = 'Priority:';
+                todoBox.appendChild(prioritySelectLabel);
+                prioritySelectLabel.appendChild(prioritySelect);
     
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'delete';
@@ -164,7 +176,10 @@ function loadDOM() {
                 if (todo.dueDate) {
                     const miniDueDate = document.createElement('h4');
                     miniDueDate.textContent = format(todo.dueDate, 'MM/dd/yyyy');
-                    todoBox.appendChild(miniDueDate);
+                    const miniDueDateLabel = document.createElement('label');
+                    miniDueDateLabel.textContent = 'Due Date:';
+                    todoBox.appendChild(miniDueDateLabel);
+                    miniDueDateLabel.appendChild(miniDueDate);
                 }
             }
 

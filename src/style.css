@@ -1,10 +1,12 @@
 .projectBox {
     border: 2px solid blue;
     margin: 10px;
+    padding: 10px;
 }
 
 .todoBox {
     border: 2px solid red;
+    margin: 10px 0px 10px 0px;
 }
 
 .complete {
