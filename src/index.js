@@ -88,15 +88,16 @@ function loadDOM() {
 
             // if the user has expanded the 'To-Do'
             if (todo.maximized) {
-                const completeButton = document.createElement('button');
-                completeButton.textContent = 'Complete';
-                todo.complete ? completeButton.style.backgroundColor = 'green' : completeButton.style.backgroundColor = 'initial';
-                completeButton.addEventListener('click', function() {
+                const completeCheckbox = document.createElement('input');
+                completeCheckbox.classList.add('completeCheckbox');
+                completeCheckbox.type = 'checkbox';
+                todo.complete ? completeCheckbox.checked = true : completeCheckbox.checked = false;
+                completeCheckbox.addEventListener('click', () => {
                     todo.complete = !todo.complete;
                     saveToLocalStorage();
-                    loadDOM();               
+                    loadDOM();
                 })
-                todoBox.appendChild(completeButton);
+                todoBox.appendChild(completeCheckbox);
     
                 const title = document.createElement('textarea');
                 title.textContent = todo.title;
