@@ -2,14 +2,53 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(226, 222, 222);
+    position: relative
+}
+
+.addProjectButton {
+    width: 100px;
+    position: fixed;
+    top: 10px;
+    left: 6vw;
+}
+
+.addProjectButton:hover {
+    cursor: pointer;
+}
+
 .projectBox {
-    border: 2px solid blue;
+    background-color: rgb(248, 248, 248);
+    box-shadow: 3px 3px rgb(199, 196, 196);
+    border-radius: 10px;
+    width: 60vw;
     margin: 10px;
-    padding: 10px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+}
+
+.projectHeading {
+    margin-top: 0;
+}
+
+.addTodoButton {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
+}
+
+.addTodoButton:hover {
+    box-shadow: 0 0 10px;
 }
 
 .deleteProject {
@@ -26,7 +65,8 @@
 
 .todoBox {
     width: 50vw;
-    border: 2px solid red;
+    border: 3px solid;
+    border-radius: 4px;
     margin: 10px 0px 10px 0px;
     padding: 20px;
     display: flex;
@@ -67,6 +107,10 @@
     background-color: #f8f8f8;
 }
 
+.miniDueDate {
+    margin-left: 5px;
+}
+
 .prioritySelect {
     margin-left: 10px;
     border: 2px solid #ccc;
@@ -82,7 +126,8 @@ label {
     position: absolute;
     top: 0;
     right: 0;
-    border: none;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
 }
 
 .edit:hover {
@@ -94,7 +139,7 @@ label {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 20px;
+    width: 25px;
     
 }
 

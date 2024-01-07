@@ -1,13 +1,14 @@
 import './style.css';
 import { format } from 'date-fns';
-import removeAllChildren from './removeAllChildren.js'
+import removeAllChildren from './removeAllChildren.js';
 import removeItemFromArray from './removeItemFromArray.js';
 import trashCan from './trash-can-outline.svg';
+import folderPlus from './folder-plus.svg';
 
 const ToDo = (title, description, dueDate, priority) => {
     // A 'To-Do' item as part of a larger 'project'
     const complete = false;
-    const maximized = false;
+    const maximized = true;
     return {title, description, dueDate, priority, complete, maximized};
 };
 
@@ -55,16 +56,29 @@ function loadDOM() {
     // utilizing event listeners to facilitate user input
     removeAllChildren(document.body);
 
+    const addProjectButton = document.createElement('img');
+    addProjectButton.classList.add('addProjectButton');
+    addProjectButton.src = folderPlus;
+    addProjectButton.addEventListener('click', () => {
+        let projectTitle = prompt("Project title?");
+        projectList.unshift(Project(projectTitle, [ToDo('', '', '', '')]));
+        saveToLocalStorage();
+        loadDOM();
+    });
+    document.body.appendChild(addProjectButton); 
+
     for (let project of projectList) {
         const projectBox = document.createElement('div');
         projectBox.classList.add('projectBox');
         document.body.appendChild(projectBox);
 
-        const projectHeading = document.createElement('h2');
+        const projectHeading = document.createElement('h1');
+        projectHeading.classList.add('projectHeading');
         projectHeading.textContent = project.title;
         projectBox.appendChild(projectHeading);
 
         const addTodoButton = document.createElement('button');
+        addTodoButton.classList.add('addTodoButton');
         addTodoButton.textContent = '+';
         addTodoButton.addEventListener('click', function() {
             project.todoList.unshift(ToDo('','','',''));
@@ -86,11 +100,13 @@ function loadDOM() {
         for (let todo of project.todoList) {
             const todoBox = document.createElement('div');
             todoBox.classList.add('todoBox');
+            if (todo.priority == 'high') todoBox.style.borderColor = 'red';
+            else if (todo.priority == 'medium') todoBox.style.borderColor = 'orange';
+            else if (todo.priority == 'low') todoBox.style.borderColor = 'green';
+            else todoBox.style.borderColor = 'grey';
             projectBox.appendChild(todoBox);
 
-            // if the user has expanded the 'To-Do'
-            if (todo.maximized) {
-                const completeCheckbox = document.createElement('input');
+            const completeCheckbox = document.createElement('input');
                 completeCheckbox.classList.add('completeCheckbox');
                 completeCheckbox.type = 'checkbox';
                 todo.complete ? completeCheckbox.checked = true : completeCheckbox.checked = false;
@@ -100,7 +116,9 @@ function loadDOM() {
                     loadDOM();
                 })
                 todoBox.appendChild(completeCheckbox);
-    
+
+            // if the user has expanded the 'To-Do'
+            if (todo.maximized) {
                 const title = document.createElement('textarea');
                 title.classList.add('title');
                 title.textContent = todo.title;
@@ -158,34 +176,26 @@ function loadDOM() {
                 prioritySelect.addEventListener('change', function() {
                     todo.priority = prioritySelect.value;
                     saveToLocalStorage();
+                    loadDOM();
                 })
                 const prioritySelectLabel = document.createElement('label');
                 prioritySelectLabel.textContent = 'Priority:';
                 todoBox.appendChild(prioritySelectLabel);
                 prioritySelectLabel.appendChild(prioritySelect);
-    
-                const deleteButton = document.createElement('img');
-                deleteButton.classList.add('delete');
-                deleteButton.src = trashCan;
-                todoBox.appendChild(deleteButton);
-                deleteButton.addEventListener('click', function() {
-                    removeItemFromArray(todo, project.todoList);
-                    saveToLocalStorage();
-                    loadDOM();
-                })
             }
 
             // if the 'To-Do' is minimized
             else {
-                const miniTitle = document.createElement('h3');
+                const miniTitle = document.createElement('h2');
                 miniTitle.textContent = todo.title;
                 todoBox.appendChild(miniTitle);
 
                 if (todo.dueDate) {
                     const miniDueDate = document.createElement('h4');
+                    miniDueDate.classList.add('miniDueDate');
                     miniDueDate.textContent = format(todo.dueDate, 'MM/dd/yyyy');
                     const miniDueDateLabel = document.createElement('label');
-                    miniDueDateLabel.textContent = 'Due Date:';
+                    miniDueDateLabel.textContent = 'Due:';
                     todoBox.appendChild(miniDueDateLabel);
                     miniDueDateLabel.appendChild(miniDueDate);
                 }
@@ -204,18 +214,18 @@ function loadDOM() {
             //    e.target.classList.toggle('clicked');
             //});
             todoBox.appendChild(editButton);
+
+            const deleteButton = document.createElement('img');
+                deleteButton.classList.add('delete');
+                deleteButton.src = trashCan;
+                todoBox.appendChild(deleteButton);
+                deleteButton.addEventListener('click', function() {
+                    removeItemFromArray(todo, project.todoList);
+                    saveToLocalStorage();
+                    loadDOM();
+                })
         }
     }
-
-    const addProjectButton = document.createElement('button');
-    addProjectButton.textContent = 'Add Project';
-    addProjectButton.addEventListener('click', () => {
-        let projectTitle = prompt("Project title?");
-        projectList.unshift(Project(projectTitle, [ToDo('', '', '', '')]));
-        saveToLocalStorage();
-        loadDOM();
-    });
-    document.body.appendChild(addProjectButton); 
 }
 
 // driver script
