@@ -66,9 +66,11 @@ function loadDOM() {
     addProjectButton.src = folderPlus;
     addProjectButton.addEventListener('click', () => {
         let projectTitle = prompt("Project title?");
-        projectList.unshift(Project(projectTitle, [ToDo('', '', '', '')]));
-        saveToLocalStorage();
-        loadDOM();
+        if (projectTitle) {
+            projectList.unshift(Project(projectTitle, [ToDo('', '', '', '')]));
+            saveToLocalStorage();
+            loadDOM();
+        }
     });
     document.body.appendChild(addProjectButton); 
 
@@ -79,7 +81,12 @@ function loadDOM() {
 
         const projectHeading = document.createElement('h1');
         projectHeading.classList.add('projectHeading');
+        projectHeading.contentEditable = 'true';
         projectHeading.textContent = project.title;
+        projectHeading.addEventListener('input', () => {
+            project.title = projectHeading.textContent;
+            saveToLocalStorage();
+        });
         projectBox.appendChild(projectHeading);
 
         const addTodoButton = document.createElement('button');
@@ -96,9 +103,11 @@ function loadDOM() {
         deleteProjectButton.classList.add('deleteProject');
         deleteProjectButton.src = trashCan;
         deleteProjectButton.addEventListener('click', function() {
-            removeItemFromArray(project, projectList);
-            saveToLocalStorage();
-            loadDOM();
+            if (confirm('Are you sure you want to delete this project?')) {
+                removeItemFromArray(project, projectList);
+                saveToLocalStorage();
+                loadDOM();
+            }
         });
         projectBox.appendChild(deleteProjectButton);
 
@@ -225,9 +234,11 @@ function loadDOM() {
                 deleteButton.src = trashCan;
                 todoBox.appendChild(deleteButton);
                 deleteButton.addEventListener('click', function() {
-                    removeItemFromArray(todo, project.todoList);
-                    saveToLocalStorage();
-                    loadDOM();
+                    if (confirm('Are you sure you want to delete this to-do?')) {
+                        removeItemFromArray(todo, project.todoList);
+                        saveToLocalStorage();
+                        loadDOM();
+                    }
                 })
         }
     }
