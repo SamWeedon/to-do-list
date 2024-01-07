@@ -9,16 +9,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+}
+
+.deleteProject {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 30px;
+}
+
+.deleteProject:hover {
+    box-shadow: 0 0 20px;
+    cursor: pointer;
 }
 
 .todoBox {
     width: 50vw;
     border: 2px solid red;
     margin: 10px 0px 10px 0px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
+    gap: 20px;
 }
 
 .completeCheckbox {
@@ -37,12 +52,25 @@
 
 .title, .description {
     padding: 12px 20px;
+    margin-left: 10px;
     box-sizing: border-box;
     border: 2px solid #ccc;
     border-radius: 4px;
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
+}
+
+.dueDate {
+    margin-left: 10px;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
+}
+
+.prioritySelect {
+    margin-left: 10px;
+    border: 2px solid #ccc;
+    background-color: #f8f8f8;
 }
 
 label {
@@ -66,4 +94,11 @@ label {
     position: absolute;
     bottom: 0;
     right: 0;
+    width: 20px;
+    
+}
+
+.delete:hover {
+    box-shadow: 0 0 10px;
+    cursor: pointer;
 }

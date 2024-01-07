@@ -2,6 +2,7 @@ import './style.css';
 import { format } from 'date-fns';
 import removeAllChildren from './removeAllChildren.js'
 import removeItemFromArray from './removeItemFromArray.js';
+import trashCan from './trash-can-outline.svg';
 
 const ToDo = (title, description, dueDate, priority) => {
     // A 'To-Do' item as part of a larger 'project'
@@ -64,7 +65,7 @@ function loadDOM() {
         projectBox.appendChild(projectHeading);
 
         const addTodoButton = document.createElement('button');
-        addTodoButton.textContent = 'Add ToDo';
+        addTodoButton.textContent = '+';
         addTodoButton.addEventListener('click', function() {
             project.todoList.unshift(ToDo('','','',''));
             saveToLocalStorage();
@@ -72,8 +73,9 @@ function loadDOM() {
         });
         projectBox.appendChild(addTodoButton);
 
-        const deleteProjectButton = document.createElement('button');
-        deleteProjectButton.textContent = 'Delete Project';
+        const deleteProjectButton = document.createElement('img');
+        deleteProjectButton.classList.add('deleteProject');
+        deleteProjectButton.src = trashCan;
         deleteProjectButton.addEventListener('click', function() {
             removeItemFromArray(project, projectList);
             saveToLocalStorage();
@@ -107,7 +109,7 @@ function loadDOM() {
                     saveToLocalStorage();
                 })
                 const titleLabel = document.createElement('label');
-                titleLabel.textContent = 'Title:';
+                titleLabel.textContent = 'Title: ';
                 todoBox.appendChild(titleLabel);
                 titleLabel.appendChild(title);
     
@@ -119,11 +121,12 @@ function loadDOM() {
                     saveToLocalStorage();
                 })
                 const descriptionLabel = document.createElement('label');
-                descriptionLabel.textContent = 'Description:';
+                descriptionLabel.textContent = 'Description: ';
                 todoBox.appendChild(descriptionLabel);
                 descriptionLabel.appendChild(description);
     
                 const dueDate = document.createElement('input');
+                dueDate.classList.add('dueDate');
                 dueDate.type = 'date';
                 if (todo.dueDate) {
                     dueDate.valueAsDate = new Date(todo.dueDate);
@@ -133,11 +136,12 @@ function loadDOM() {
                     saveToLocalStorage();
                 })
                 const dueDateLabel = document.createElement('label');
-                dueDateLabel.textContent = 'Due Date:';
+                dueDateLabel.textContent = 'Due Date: ';
                 todoBox.appendChild(dueDateLabel);
                 dueDateLabel.appendChild(dueDate);
     
                 const prioritySelect = document.createElement('select');
+                prioritySelect.classList.add('prioritySelect');
                 const lowPriority = document.createElement('option');
                 lowPriority.value = 'low';
                 lowPriority.textContent = 'Low';
@@ -160,9 +164,9 @@ function loadDOM() {
                 todoBox.appendChild(prioritySelectLabel);
                 prioritySelectLabel.appendChild(prioritySelect);
     
-                const deleteButton = document.createElement('button');
+                const deleteButton = document.createElement('img');
                 deleteButton.classList.add('delete');
-                deleteButton.textContent = 'delete';
+                deleteButton.src = trashCan;
                 todoBox.appendChild(deleteButton);
                 deleteButton.addEventListener('click', function() {
                     removeItemFromArray(todo, project.todoList);
