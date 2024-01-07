@@ -100,6 +100,7 @@ function loadDOM() {
                 todoBox.appendChild(completeCheckbox);
     
                 const title = document.createElement('textarea');
+                title.classList.add('title');
                 title.textContent = todo.title;
                 title.addEventListener('input', function() {
                     todo.title = title.value;
@@ -111,6 +112,7 @@ function loadDOM() {
                 titleLabel.appendChild(title);
     
                 const description = document.createElement('textarea');
+                description.classList.add('description');
                 description.textContent = todo.description;
                 description.addEventListener('input', function() {
                     todo.description = description.value;
@@ -159,6 +161,7 @@ function loadDOM() {
                 prioritySelectLabel.appendChild(prioritySelect);
     
                 const deleteButton = document.createElement('button');
+                deleteButton.classList.add('delete');
                 deleteButton.textContent = 'delete';
                 todoBox.appendChild(deleteButton);
                 deleteButton.addEventListener('click', function() {
@@ -185,8 +188,9 @@ function loadDOM() {
             }
 
             const editButton = document.createElement('button');
-            if (todo.maximized) editButton.textContent = 'Minimize';
-            else editButton.textContent = 'Expand';
+            editButton.classList.add('edit');
+            if (todo.maximized) editButton.textContent = '-';
+            else editButton.textContent = '+';
             editButton.addEventListener('click', function() {
                 todo.maximized = !todo.maximized;
                 saveToLocalStorage();
