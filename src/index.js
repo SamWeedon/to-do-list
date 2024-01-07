@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import removeAllChildren from './removeAllChildren.js';
 import removeItemFromArray from './removeItemFromArray.js';
 import trashCan from './trash-can-outline.svg';
-import folderPlus from './folder-plus.svg';
+import folderPlus from './folder-plus-outline.svg';
 
 const ToDo = (title, description, dueDate, priority) => {
     // A 'To-Do' item as part of a larger 'project'
@@ -55,6 +55,11 @@ function loadDOM() {
     // Iterates through the data within the project list to populate the DOM, 
     // utilizing event listeners to facilitate user input
     removeAllChildren(document.body);
+
+    const websiteHeading = document.createElement('h1');
+    websiteHeading.classList.add('websiteHeading');
+    websiteHeading.textContent = 'To-Do';
+    document.body.appendChild(websiteHeading);
 
     const addProjectButton = document.createElement('img');
     addProjectButton.classList.add('addProjectButton');

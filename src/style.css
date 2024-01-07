@@ -10,11 +10,18 @@ body {
     position: relative
 }
 
-.addProjectButton {
-    width: 100px;
+.websiteHeading {
     position: fixed;
-    top: 10px;
-    left: 6vw;
+    top: 0;
+    margin-top: 0;
+    left: 10px;
+}
+
+.addProjectButton {
+    width: 75px;
+    position: fixed;
+    top: 50px;
+    left: 10px;
 }
 
 .addProjectButton:hover {
