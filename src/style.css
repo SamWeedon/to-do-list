@@ -1,156 +1,156 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(226, 222, 222);
-    position: relative
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(226, 222, 222);
+  position: relative;
 }
 
 .websiteHeading {
-    position: fixed;
-    top: 0;
-    margin-top: 0;
-    left: 10px;
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  left: 10px;
 }
 
 .addProjectButton {
-    width: 75px;
-    position: fixed;
-    top: 50px;
-    left: 10px;
+  width: 75px;
+  position: fixed;
+  top: 50px;
+  left: 10px;
 }
 
 .addProjectButton:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .projectBox {
-    background-color: rgb(248, 248, 248);
-    box-shadow: 3px 3px rgb(199, 196, 196);
-    border-radius: 10px;
-    width: 60vw;
-    margin: 10px;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+  background-color: rgb(248, 248, 248);
+  box-shadow: 3px 3px rgb(199, 196, 196);
+  border-radius: 10px;
+  width: 60vw;
+  margin: 10px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
 .projectHeading {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .addTodoButton {
-    width: 40px;
-    height: 40px;
-    font-size: 30px;
-    cursor: pointer;
-    border: 2px solid #ccc;
-    background-color: #f8f8f8;
+  width: 40px;
+  height: 40px;
+  font-size: 30px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
 }
 
 .addTodoButton:hover {
-    box-shadow: 0 0 10px;
+  box-shadow: 0 0 10px;
 }
 
 .deleteProject {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 30px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 30px;
 }
 
 .deleteProject:hover {
-    box-shadow: 0 0 20px;
-    cursor: pointer;
+  box-shadow: 0 0 20px;
+  cursor: pointer;
 }
 
 .todoBox {
-    width: 50vw;
-    border: 3px solid;
-    border-radius: 4px;
-    margin: 10px 0px 10px 0px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    gap: 20px;
+  width: 50vw;
+  border: 3px solid;
+  border-radius: 4px;
+  margin: 10px 0px 10px 0px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  gap: 20px;
 }
 
 .completeCheckbox {
-    cursor: pointer;
-    height: 40px;
-    width: 40px;
-    accent-color: green;
-    position: absolute;
-    top: 0;
-    left: 0;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  accent-color: green;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .completeCheckbox:hover {
-    box-shadow: 0 0 10px;
+  box-shadow: 0 0 10px;
 }
 
-.title, .description {
-    padding: 12px 20px;
-    margin-left: 10px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    resize: none;
+.title,
+.description {
+  padding: 12px 20px;
+  margin-left: 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
 }
 
 .dueDate {
-    margin-left: 10px;
-    border: 2px solid #ccc;
-    background-color: #f8f8f8;
+  margin-left: 10px;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
 }
 
 .miniDueDate {
-    margin-left: 5px;
+  margin-left: 5px;
 }
 
 .prioritySelect {
-    margin-left: 10px;
-    border: 2px solid #ccc;
-    background-color: #f8f8f8;
+  margin-left: 10px;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
 }
 
 label {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .edit {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border: 2px solid #ccc;
-    background-color: #f8f8f8;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 2px solid #ccc;
+  background-color: #f8f8f8;
 }
 
 .edit:hover {
-    box-shadow: 0 0 10px;
-    cursor: pointer;
+  box-shadow: 0 0 10px;
+  cursor: pointer;
 }
 
 .delete {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 25px;
-    
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 25px;
 }
 
 .delete:hover {
-    box-shadow: 0 0 10px;
-    cursor: pointer;
+  box-shadow: 0 0 10px;
+  cursor: pointer;
 }

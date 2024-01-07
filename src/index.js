@@ -10,16 +10,26 @@ const ToDo = (title, description, dueDate, priority) => {
   const complete = false;
   const maximized = true;
   return {
-    title, description, dueDate, priority, complete, maximized,
+    title,
+    description,
+    dueDate,
+    priority,
+    complete,
+    maximized,
   };
 };
 
 const Project = (title, todoList) =>
-// A project that contains a 'To-Do' list
+  // A project that contains a 'To-Do' list
   ({ title, todoList });
 
 // Creates default content for the first time visiting the website
-const defaultToDo = ToDo('groceries', 'get milk', new Date('2023-12-08T00:00'), 'high');
+const defaultToDo = ToDo(
+  'groceries',
+  'get milk',
+  new Date('2023-12-08T00:00'),
+  'high',
+);
 const ToDo1 = ToDo('eat', 'eat dinner', new Date('2023-12-09T00:00'), 'low');
 const ToDo2 = ToDo('run', '3 miles', new Date('2023-12-10T00:00'), 'medium');
 const defaultProject = Project('default', [defaultToDo, ToDo1, ToDo2]);
@@ -124,7 +134,9 @@ function loadDOM() {
       const completeCheckbox = document.createElement('input');
       completeCheckbox.classList.add('completeCheckbox');
       completeCheckbox.type = 'checkbox';
-      todo.complete ? completeCheckbox.checked = true : completeCheckbox.checked = false;
+      todo.complete
+        ? (completeCheckbox.checked = true)
+        : (completeCheckbox.checked = false);
       completeCheckbox.addEventListener('click', () => {
         todo.complete = !todo.complete;
         saveToLocalStorage();
@@ -246,7 +258,7 @@ function loadDOM() {
 }
 
 // driver script
-if (localStorage.length == 0) {
+if (localStorage.length === 0) {
   saveToLocalStorage();
 }
 loadLocalStorage();

@@ -1,5 +1,5 @@
 export default function removeAllChildren(element) {
-    while (element.firstChild) {
-        element.removeChild(element.firstChild);
-    }
+  while (element.firstChild) {
+    element.removeChild(element.firstChild);
+  }
 }
